@@ -1,6 +1,10 @@
 var Docker = require('dockerode');
-var docker = new Docker({socketPath: '/var/run/docker.sock'});
-console.log(docker);
+var docker = new Docker();
 
-let message: string = "Hello, World!";
-console.log(message);
+docker.listImages(function (err, images) {
+    if (err) {
+      console.error('Error listing images:', err);
+    } else {
+      console.log('Images:', images);
+    }
+  });
