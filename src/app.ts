@@ -1,10 +1,20 @@
-var Docker = require('dockerode');
-var docker = new Docker();
+import yargs from 'yargs';
+import { listImages, formatImages } from './dockerHelper/dockerHelper';
+import { FormattedImage } from './types/FormattedImage';
 
-docker.listImages(function (err, images) {
-    if (err) {
-      console.error('Error listing images:', err);
-    } else {
-      console.log('Images:', images);
+yargs
+  .command('list', 'List all images', {}, async (argv) => {
+    try {
+      const images = await listImages();
+      if (!images || images.length === 0) {
+        console.error('No images found.');
+      } else {
+        const formattedImages: FormattedImage = formatImages(images);
+        console.log(JSON.stringify(formattedImages, null, 2));
+      }
+    } catch (error) {
+      console.error('Failed to list images:', error.message);
     }
-  });
+  })
+  .help()
+  .argv;
