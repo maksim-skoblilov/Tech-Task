@@ -44,3 +44,14 @@ export function formatImages(images: Image[]): FormattedImage {
 
   return formattedImages;
 }
+
+export async function pullImage(repository: string, tag: string): Promise<void> {
+  const docker = new Docker();
+
+  try {
+    await docker.pull(`${repository}:${tag}`);
+    console.log(`Pulled image ${repository}:${tag}`);
+  } catch (err) {
+    throw new Error('Error pulling image: ' + err.message);
+  }
+}
