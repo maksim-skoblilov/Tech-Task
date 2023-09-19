@@ -16,7 +16,18 @@ yargs
       console.error('Failed to list images:', error.message);
     }
   })
-  .command('pull <repository> <tag>', 'Pull an image from the registry', {}, async (argv) => {
+  .command('pull <repository> [tag]', 'Pull an image from the registry', (yargs) => {
+    yargs
+      .positional('repository', {
+        describe: 'The name of the image repository',
+        type: 'string',
+      })
+      .positional('tag', {
+        describe: 'The tag of the image (default: latest)',
+        type: 'string',
+        default: 'latest',
+      });
+  }, async (argv) => {
     try {
       await pullImage(argv.repository, argv.tag);
     } catch (error) {
