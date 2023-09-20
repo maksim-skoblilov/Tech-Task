@@ -55,3 +55,26 @@ export async function pullImage(repository: string, tag: string): Promise<void> 
     throw new Error('Error pulling image: ' + err.message);
   }
 }
+
+export async function removeContainer(containerIdentifier: string): Promise<void> {
+  const docker = new Docker();
+
+  try {
+    const container = docker.getContainer(containerIdentifier);
+    await container.remove({ force: true });
+    console.log(`Removed container ${containerIdentifier}`);
+  } catch (err) {
+    throw new Error('Error removing container: ' + err.message);
+  }
+}
+
+export async function removeImage(imageIdentifier: string): Promise<void> {
+  const docker = new Docker();
+
+  try {
+    await docker.getImage(imageIdentifier).remove({ force: true });
+    console.log(`Removed image ${imageIdentifier}`);
+  } catch (err) {
+    throw new Error('Error removing image: ' + err.message);
+  }
+}

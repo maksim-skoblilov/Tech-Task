@@ -1,5 +1,5 @@
 import yargs from 'yargs';
-import { listImages, formatImages, pullImage } from './dockerHelper/dockerHelper';
+import { listImages, formatImages, pullImage, removeContainer, removeImage } from './dockerHelper/dockerHelper';
 import { FormattedImage } from './types/FormattedImage';
 
 yargs
@@ -32,6 +32,32 @@ yargs
       await pullImage(argv.repository, argv.tag);
     } catch (error) {
       console.error('Failed to pull image:', error.message);
+    }
+  })
+  .command('remove-container <containerIdentifier>', 'Remove a container by name or ID', (yargs) => {
+    yargs
+      .positional('containerIdentifier', {
+        describe: 'The name or ID of the container to remove',
+        type: 'string',
+      });
+  }, async (argv) => {
+    try {
+      await removeContainer(argv.containerIdentifier);
+    } catch (error) {
+      console.error('Failed to remove container:', error.message);
+    }
+  })
+  .command('remove-image <imageIdentifier>', 'Remove an image by name or ID', (yargs) => {
+    yargs
+      .positional('imageIdentifier', {
+        describe: 'The name or ID of the image to remove',
+        type: 'string',
+      });
+  }, async (argv) => {
+    try {
+      await removeImage(argv.imageIdentifier);
+    } catch (error) {
+      console.error('Failed to remove image:', error.message);
     }
   })
   .help()
