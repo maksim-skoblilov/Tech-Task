@@ -1,6 +1,6 @@
 export interface Image {
-    Id: string;
-    RepoTags: string[];
-    RepoDigests: string[];
-    ParentId: string;
-  }
+  Id: string;
+  RepoTags: string[];
+  RepoDigests: string[];
+  ParentId: string;
+}

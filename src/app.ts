@@ -3,7 +3,7 @@ import { listImages, formatImages, pullImage, removeContainer, removeImage } fro
 import { FormattedImage } from './types/FormattedImage';
 
 yargs
-  .command('list', 'List all images', {}, async (argv) => {
+  .command('list-images', 'List all images', {}, async (argv) => {
     try {
       const images = await listImages();
       if (!images || images.length === 0) {
@@ -16,7 +16,7 @@ yargs
       console.error('Failed to list images:', error.message);
     }
   })
-  .command('pull <repository> [tag]', 'Pull an image from the registry', (yargs) => {
+  .command('pull-image <repository> [tag]', 'Pull an image from the registry', (yargs) => {
     yargs
       .positional('repository', {
         describe: 'The name of the image repository',
