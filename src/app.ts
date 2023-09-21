@@ -2,13 +2,18 @@ import yargs from 'yargs';
 import { listImages, formatImages, pullImage, removeContainer, removeImage } from './dockerHelper/dockerHelper';
 import { FormattedImage } from './types/FormattedImage';
 
+// Command-line interface configuration using yargs
 yargs
   .command('list-images', 'List all images', {}, async (argv) => {
     try {
+      // Call the 'listImages' function to retrieve a list of Docker images
       const images = await listImages();
+
+      // Check if no images were found
       if (!images || images.length === 0) {
         console.error('No images found.');
       } else {
+        // Format the list of images and print it in a structured JSON format
         const formattedImages: FormattedImage = formatImages(images);
         console.log(JSON.stringify(formattedImages, null, 2));
       }
@@ -29,6 +34,7 @@ yargs
       });
   }, async (argv) => {
     try {
+      // Call the 'pullImage' function to pull a Docker image
       await pullImage(argv.repository, argv.tag);
     } catch (error) {
       console.error('Failed to pull image:', error.message);
@@ -42,6 +48,7 @@ yargs
       });
   }, async (argv) => {
     try {
+      // Call the 'removeContainer' function to remove a Docker container
       await removeContainer(argv.containerIdentifier);
     } catch (error) {
       console.error('Failed to remove container:', error.message);
@@ -55,10 +62,11 @@ yargs
       });
   }, async (argv) => {
     try {
+      // Call the 'removeImage' function to remove a Docker image
       await removeImage(argv.imageIdentifier);
     } catch (error) {
       console.error('Failed to remove image:', error.message);
     }
   })
-  .help()
+  .help() // Show help information for available commands
   .argv;
