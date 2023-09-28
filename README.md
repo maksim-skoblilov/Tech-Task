@@ -2,7 +2,7 @@
 
 This Typescript CLI for Docker provides the following functionality:
 
-  - Aggregate the metadata about all images available on the host
+  - Aggregate the metadata about all images available on the host in a JSON file
   - Pull the container from the registry
   - Remove the container from the host
   - Remove the image from the host
@@ -72,7 +72,7 @@ devcontainer up --workspace-folder <path-to-repository> npm start <command-name>
 
 ### 1. List Images
 
-Aggregate the metadata about all images available on the host and list them
+Aggregate the metadata about all images available on the host in a JSON file. The results can be found in the `./output/output.json` file.
 
 ```bash
 list-images
@@ -90,7 +90,7 @@ npm start list-images
 
 ### 2. Pull Image
 
-Pull a Docker image from a registry
+Pull a Docker image from a registry.
 
 ```bash
 pull-image <repository> [tag]
@@ -110,7 +110,7 @@ npm start pull-image ubuntu latest
 
 ### 3. Remove Container
 
-Remove a Docker container from the host by name or ID
+Remove a Docker container from the host by name or ID.
 
 ```bash
 remove-container <containerIdentifier>
@@ -130,7 +130,7 @@ npm start remove-container ca978112ca1b
 
 ### 4. Remove Image
 
-Remove a Docker image from the host by name or ID
+Remove a Docker image from the host by name or ID.
 
 ```bash
 remove-image <imageIdentifier>

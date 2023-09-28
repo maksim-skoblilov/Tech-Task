@@ -1,5 +1,5 @@
 import yargs from 'yargs';
-import { listImages, formatImages, pullImage, removeContainer, removeImage } from './dockerHelper/dockerHelper';
+import { listImages, formatImages, pullImage, removeContainer, removeImage, saveToJSONFile } from './dockerHelper/dockerHelper';
 import { FormattedImage } from './types/FormattedImage';
 
 // Command-line interface configuration using yargs
@@ -13,9 +13,11 @@ yargs
       if (!images || images.length === 0) {
         console.error('No images found.');
       } else {
-        // Format the list of images and print it in a structured JSON format
+        // Format the list of images
         const formattedImages: FormattedImage = formatImages(images);
-        console.log(JSON.stringify(formattedImages, null, 2));
+
+        // Call the 'saveToJSONFile' function to save the formatted images data to a JSON file
+        saveToJSONFile(formattedImages);
       }
     } catch (error) {
       console.error('Failed to list images:', error.message);

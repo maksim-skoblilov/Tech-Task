@@ -19,6 +19,8 @@ coverage
 
 .env
 
+output
+
 node_modules
 bower_components
 
